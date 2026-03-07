@@ -22,7 +22,7 @@ const Projects: Project[] = [
       "フォームバリデーション",
       "APIエラー/ローディング表示",
     ],
-    demoUrl: "",
+    demoUrl: "https://user-management-admin.vercel.app",
     repoUrl: "",
   },
   {
@@ -31,7 +31,7 @@ const Projects: Project[] = [
       "フィルタ・ソート・ページネーションなど、業務で使う検索UIの実装サンプル。",
     tech: ["React", "TypeScript"],
     highlights: ["検索条件の状態管理", "UIの使いやすさ", "パフォーマンス意識"],
-    demoUrl: "",
+    demoUrl: "https://ec-demo-zvmh.vercel.app",
     repoUrl: "",
   },
 ];
