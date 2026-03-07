@@ -1,7 +1,7 @@
 "use client";
 
 import { AboutSection } from "@/components/sections/AboutSection";
-import { ContactSection } from "@/components/sections/ContactSectio";
+import { ContactSection } from "@/components/sections/ContactSection";
 import { IntroductionSection } from "@/components/sections/IntroductionSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";

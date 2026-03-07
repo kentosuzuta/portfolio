@@ -16,7 +16,7 @@ const Projects: Project[] = [
     title: "業務CRUDアプリ（準備中）",
     description:
       "業務アプリを想定したCRUD（一覧・詳細・作成・編集・削除）サンプル。API連携やエラーハンドリングも含めて実装予定。",
-    tech: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Git / GitHub"],
+    tech: ["React", "TypeScript", "Next.js", "MUI", "Git / GitHub"],
     highlights: [
       "コンポーネント分割と責務整理",
       "フォームバリデーション",
