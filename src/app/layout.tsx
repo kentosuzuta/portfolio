@@ -15,11 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className="min-h-dvh bg-zinc-50 text-zinc-900">
+      <body
+        suppressHydrationWarning
+        className="min-h-dvh bg-slate-50 text-slate-900 antialiased"
+      >
         <Header />
-        <div className="mx-auto flex min-h-dvh max-w-5xl flex-col px-6">
-          <main className="flex-1">{children}</main>
-        </div>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
