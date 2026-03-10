@@ -3,11 +3,9 @@
 フロントエンドエンジニア向けのポートフォリオサイトです。  
 `About / Skills / Projects / Contact` を1ページで構成し、実装内容を短時間で把握できる構成にしています。
 
-## Demo URL
+## Deploy URL
 
-- Production: `TBD (deploy after Vercel)`
-
-デプロイ後に上記を実URLへ更新してください。
+- Production: `https://portfolio-neon-sigma-63.vercel.app/`
 
 ## Tech Stack
 
