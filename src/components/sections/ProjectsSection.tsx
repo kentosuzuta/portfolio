@@ -1,174 +1,173 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
+import { FiExternalLink, FiGithub } from "react-icons/fi";
 
-export type Project = {
+type Project = {
   title: string;
-  description: string;
-  tech: string[];
+  summary: string;
+  features: string[];
   highlights: string[];
-  demoUrl: string;
-  repoUrl: string;
+  tech: string[];
+  github: string;
+  demo: string;
 };
 
-const Projects: Project[] = [
+const PROJECTS: Project[] = [
   {
-    title: "業務CRUDアプリ（準備中）",
-    description:
-      "業務アプリを想定したCRUD（一覧・詳細・作成・編集・削除）サンプル。API連携やエラーハンドリングも含めて実装予定。",
-    tech: ["React", "TypeScript", "Next.js", "MUI", "Git / GitHub"],
-    highlights: [
-      "コンポーネント分割と責務整理",
-      "フォームバリデーション",
-      "APIエラー/ローディング表示",
+    title: "ユーザー管理 管理画面(Demo)",
+    summary:
+      "Next.js（App Router）で構築したユーザー管理の管理画面。デモ認証、ダッシュボード、ユーザーCRUD、検索/絞り込み、設定更新までを実装。",
+    features: [
+      "ログイン / ログアウト（デモ認証）",
+      "ダッシュボード表示（KPI / 構成比 / 最近登録ユーザー）",
+      "ユーザー一覧・詳細・編集・削除",
+      "キーワード検索、ロール/ステータス絞り込み",
+      "設定画面の取得/更新（API経由）",
     ],
-    demoUrl: "https://user-management-admin.vercel.app",
-    repoUrl: "",
+    highlights: [
+      "service層を分けて API 呼び出しと画面責務を分離",
+      "認証・検索・絞り込み・CRUD の業務フローを一連で実装",
+      "MSW によるモックでフロント単体検証しやすい構成に整理",
+    ],
+    tech: ["Next.js", "React", "TypeScript", "MUI", "SWR", "MSW"],
+    github: "https://github.com/kentosuzuta/user-management-admin",
+    demo: "https://user-management-admin.vercel.app/",
   },
   {
-    title: "検索UIサンプル（準備中）",
-    description:
-      "フィルタ・ソート・ページネーションなど、業務で使う検索UIの実装サンプル。",
-    tech: ["React", "TypeScript"],
-    highlights: ["検索条件の状態管理", "UIの使いやすさ", "パフォーマンス意識"],
-    demoUrl: "https://ec-demo-zvmh.vercel.app",
-    repoUrl: "",
+    title: "ECサイト(Demo)",
+    summary:
+      "Next.js + TypeScript + Supabase で構築した EC デモ。商品一覧/詳細、カート・お気に入り、チェックアウト3ステップ、注文確定APIまでの購入フローを実装。",
+    features: [
+      "商品一覧（カテゴリ/検索）と商品詳細（カラー・サイズ・数量）",
+      "お気に入り追加/削除、カート追加/削除/数量変更",
+      "チェックアウト3ステップ（配送先 / 支払い方法 / 注文確認）",
+      "フォームバリデーションと共通通知表示",
+    ],
+    highlights: [
+      "購入導線を一覧→詳細→カート→決済→完了まで通しで設計",
+      "入力バリデーションと通知表示でUXを改善",
+      "注文登録を API Route 経由にして DB 更新責務を分離",
+    ],
+    tech: ["Next.js", "React", "TypeScript", "MUI", "Supabase", "API Route"],
+    github: "https://github.com/kentosuzuta/ec-demo",
+    demo: "https://ec-demo-zvmh.vercel.app",
   },
 ];
 
-export const PROJECTS = Projects;
+export function ProjectsSection() {
+  return (
+    <section
+      id="projects"
+      className="flex min-h-screen items-center justify-center bg-slate-50 py-20"
+    >
+      <div className="mx-auto w-full max-w-7xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center"
+        >
+          <h2 className="mb-4 text-4xl font-bold text-slate-900 md:text-5xl">
+            Projects
+          </h2>
+        </motion.div>
 
-export type ProjectsSectionProps = {
-  variants: Variants;
-  title?: string;
-  description?: string;
-  projects?: Project[];
-  className?: string;
+        <div className="mx-auto flex max-w-4xl flex-col gap-6">
+          {PROJECTS.map((project, index) => (
+            <motion.article
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-lg"
+            >
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <div className="h-px flex-1 bg-slate-200" />
+              </div>
+
+              <h3 className="mb-4 text-2xl font-bold text-slate-900">
+                {project.title}
+              </h3>
+
+              <Section title="概要">
+                <p className="leading-relaxed text-slate-600">
+                  {project.summary}
+                </p>
+              </Section>
+
+              <Section title="実装機能">
+                <ul className="list-disc space-y-1 pl-5 text-sm text-slate-600">
+                  {project.features.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </Section>
+
+              <Section title="工夫した点">
+                <ul className="list-disc space-y-1 pl-5 text-sm text-slate-600">
+                  {project.highlights.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </Section>
+
+              <Section title="使用技術">
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </Section>
+
+              <div className="mt-2 flex flex-wrap gap-3">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 font-medium text-slate-700 transition-colors duration-300 hover:border-slate-900 hover:text-slate-900"
+                >
+                  <FiGithub className="h-5 w-5" />
+                  <span>Code</span>
+                </a>
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 font-medium text-white transition-colors duration-300 hover:bg-slate-700"
+                >
+                  <FiExternalLink className="h-5 w-5" />
+                  <span>Demo</span>
+                </a>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type SectionProps = {
+  title: string;
+  children: React.ReactNode;
 };
 
-export function ProjectsSection({
-  variants,
-  title = "Projects",
-  description = "実務の延長を意識した個人開発の制作物です（順次アップデート）。",
-  projects = PROJECTS,
-  className,
-}: ProjectsSectionProps) {
+function Section({ title, children }: SectionProps) {
   return (
-    <motion.section
-      id="projects"
-      variants={variants}
-      transition={{ delay: 0.15 }}
-      className={["scroll-mt-24 space-y-6", className]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      <div className="space-y-2">
-        <h2 className="text-3xl font-bold">{title}</h2>
-        <p className="text-sm text-zinc-700">{description}</p>
-      </div>
-
-      <div className="grid gap-4">
-        {projects.map((p) => (
-          <article
-            key={p.title}
-            className="rounded-lg border border-zinc-200 p-5"
-          >
-            <h3 className="text-lg font-semibold">{p.title}</h3>
-            <p className="mt-2 text-sm text-zinc-700">{p.description}</p>
-
-            <div className="mt-3">
-              <div className="text-sm font-medium">技術</div>
-              <ul className="mt-2 flex flex-wrap gap-2">
-                {p.tech.map((t) => (
-                  <li
-                    key={t}
-                    className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs"
-                  >
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-4">
-              <div className="text-sm font-medium">見どころ</div>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-zinc-700">
-                {p.highlights.map((h) => (
-                  <li key={h}>{h}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {p.demoUrl ? (
-                <a
-                  className="group rounded-xl border border-zinc-200 bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-md"
-                  href={p.demoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-medium">Demo</div>
-                      <div className="mt-1 text-[11px] text-zinc-500">
-                        {p.demoUrl}
-                      </div>
-                    </div>
-                    <span className="text-zinc-400 transition-transform group-hover:translate-x-0.5">
-                      ↗
-                    </span>
-                  </div>
-                </a>
-              ) : (
-                <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-medium">Demo</div>
-                      <div className="mt-1 text-[11px] text-zinc-500">
-                        準備中
-                      </div>
-                    </div>
-                    <span className="text-zinc-300">↗</span>
-                  </div>
-                </div>
-              )}
-
-              {p.repoUrl ? (
-                <a
-                  className="group rounded-xl border border-zinc-200 bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-md"
-                  href={p.repoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-medium">GitHub</div>
-                      <div className="mt-1 text-[11px] text-zinc-500">
-                        {p.repoUrl}
-                      </div>
-                    </div>
-                    <span className="text-zinc-400 transition-transform group-hover:translate-x-0.5">
-                      ↗
-                    </span>
-                  </div>
-                </a>
-              ) : (
-                <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-xs font-medium">GitHub</div>
-                      <div className="mt-1 text-[11px] text-zinc-500">
-                        準備中
-                      </div>
-                    </div>
-                    <span className="text-zinc-300">↗</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </article>
-        ))}
-      </div>
-    </motion.section>
+    <div className="mb-5">
+      <h4 className="mb-2 text-sm font-semibold text-slate-900">{title}</h4>
+      {children}
+    </div>
   );
 }

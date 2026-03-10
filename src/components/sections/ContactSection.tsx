@@ -1,81 +1,59 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { FiGithub, FiMail } from "react-icons/fi";
 
-export type ContactSectionProps = {
-  variants: Variants;
-  title?: string;
-  email?: string;
-  githubUrl?: string;
-  className?: string;
-};
-
-export function ContactSection({
-  variants,
-  title = "Contact",
-  email = "your-email@example.com",
-  githubUrl = "https://github.com/",
-  className,
-}: ContactSectionProps) {
+export function ContactSection() {
   return (
-    <motion.section
+    <section
       id="contact"
-      variants={variants}
-      transition={{ delay: 0.25 }}
-      className={[
-        "min-h-[calc(100dvh-64px)]",
-        "scroll-mt-24",
-        "flex flex-col",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className="flex min-h-screen items-center justify-center bg-slate-900 py-20"
     >
-      <div className="flex flex-1 items-center">
-        <div className="w-full space-y-6">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-bold">{title}</h2>
-            <p className="max-w-2xl text-sm leading-relaxed text-zinc-600">
-              お問い合わせはメール、または各種SNSからお願いします。
-            </p>
-          </div>
+      <div className="mx-auto w-full max-w-4xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center"
+        >
+          <h2 className="mb-4 text-4xl font-bold text-white md:text-5xl">
+            Contact
+          </h2>
+        </motion.div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
-            <a
-              href={`mailto:${email}`}
-              aria-label="Send email"
-              className="group inline-flex w-full items-center gap-3 rounded-xl border border-zinc-200 bg-white px-4 py-3 transition hover:-translate-y-0.5 hover:shadow-md sm:w-[260px]"
-            >
-              <FiMail className="h-5 w-5 text-zinc-700 transition group-hover:text-zinc-900" />
-              <div className="flex min-w-0 flex-col leading-tight">
-                <span className="text-xs font-medium text-zinc-900">Email</span>
-                <span className="truncate text-[11px] text-zinc-500">
-                  {email}
-                </span>
-              </div>
-            </a>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="mx-auto grid max-w-2xl gap-4 sm:grid-cols-2"
+        >
+          <a
+            href="mailto:kento.suzuta.dev@gmail.com"
+            className="group rounded-2xl border border-slate-700 bg-slate-800 p-6 transition-colors duration-300 hover:border-blue-500 hover:bg-slate-700"
+          >
+            <div className="mb-3 inline-flex rounded-full bg-blue-600 p-3">
+              <FiMail className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="mb-1 text-lg font-semibold text-white">Email</h3>
+            <p className="text-sm text-slate-300">kento.suzuta.dev@gmail.com</p>
+          </a>
 
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub profile"
-              className="group inline-flex w-full items-center gap-3 rounded-xl border border-zinc-200 bg-white px-4 py-3 transition hover:-translate-y-0.5 hover:shadow-md sm:w-[260px]"
-            >
-              <FiGithub className="h-5 w-5 text-zinc-700 transition group-hover:text-zinc-900" />
-              <div className="flex min-w-0 flex-col leading-tight">
-                <span className="text-xs font-medium text-zinc-900">
-                  GitHub
-                </span>
-                <span className="truncate text-[11px] text-zinc-500">
-                  {githubUrl}
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
+          <a
+            href="https://github.com/kentosuzuta"
+            target="_blank"
+            rel="noreferrer"
+            className="group rounded-2xl border border-slate-700 bg-slate-800 p-6 transition-colors duration-300 hover:border-blue-500 hover:bg-slate-700"
+          >
+            <div className="mb-3 inline-flex rounded-full bg-blue-600 p-3">
+              <FiGithub className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="mb-1 text-lg font-semibold text-white">GitHub</h3>
+            <p className="text-sm text-slate-300">github.com/kentosuzuta</p>
+          </a>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }

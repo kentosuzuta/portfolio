@@ -1,59 +1,74 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
+import { FiCode, FiPenTool, FiZap } from "react-icons/fi";
 
-export type AboutSectionProps = {
-  variants: Variants;
-  title?: string;
-  className?: string;
-};
+const STRENGTHS = [
+  {
+    icon: FiCode,
+    title: "要件を実装に落とし込む力",
+    description:
+      "要件を整理し、画面・状態・APIの責務を分けて、保守しやすい形で実装します。",
+  },
+  {
+    icon: FiPenTool,
+    title: "使いやすさを意識したUI",
+    description:
+      "操作導線や状態表示を整理し、分かりやすい UI になるよう意識して実装しています。",
+  },
+  {
+    icon: FiZap,
+    title: "保守性を意識した実装",
+    description:
+      "型定義や責務分離を意識し、変更時に影響範囲を追いやすい実装を心がけています。",
+  },
+] as const;
 
-export function AboutSection({
-  variants,
-  title = "About",
-  className,
-}: AboutSectionProps) {
+export function AboutSection() {
   return (
-    <motion.section
+    <section
       id="about"
-      variants={variants}
-      transition={{ delay: 0.2 }}
-      className={[
-        "min-h-[calc(100dvh-64px)] flex items-center",
-        "scroll-mt-24",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className="flex min-h-screen items-center justify-center bg-slate-50 py-20"
     >
-      <div className="w-full space-y-6">
-        <h2 className="text-3xl font-bold">{title}</h2>
+      <div className="mx-auto w-full max-w-7xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-14 text-center"
+        >
+          <h2 className="mb-4 text-4xl font-bold text-slate-900 md:text-5xl">
+            About Me
+          </h2>
+        </motion.div>
 
-        <section className="space-y-2">
-          <h3 className="text-lg font-semibold">概要</h3>
-          <p className="text-sm text-zinc-700">
-            フロントエンドエンジニアとして React / TypeScript
-            を中心に開発してきました。
-            業務では既存画面の改修、UI実装、API連携などを担当しました。
-          </p>
-        </section>
-
-        <section className="space-y-2">
-          <h3 className="text-lg font-semibold">経験</h3>
-          <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-700">
-            <li>React / TypeScript での画面実装・改修</li>
-            <li>REST API連携（ローディング・エラーハンドリング含む）</li>
-            <li>共通コンポーネント利用・コンポーネント分割</li>
-          </ul>
-        </section>
-
-        <section className="space-y-2">
-          <h3 className="text-lg font-semibold">今後やりたいこと</h3>
-          <p className="text-sm text-zinc-700">
-            UI/UXの品質を担保しつつ、テストや保守性も意識したフロントエンド開発に強くなりたいです。
-          </p>
-        </section>
+        <div className="grid gap-8 md:grid-cols-3">
+          {STRENGTHS.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.article
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.12, duration: 0.6 }}
+                className="rounded-2xl bg-white p-10 shadow-sm transition-shadow duration-300 hover:shadow-lg"
+              >
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100">
+                  <Icon className="h-7 w-7 text-blue-600" />
+                </div>
+                <h3 className="mb-4 text-xl font-bold text-slate-900">
+                  {item.title}
+                </h3>
+                <p className="leading-relaxed text-slate-600">
+                  {item.description}
+                </p>
+              </motion.article>
+            );
+          })}
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
